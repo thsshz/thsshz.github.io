@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="简介微信抢票开发实战总结">
 <meta name="keywords" content="软件工程3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hello world">
-<meta property="og:url" content="http://thsshuz.github.io/2017/10/16/hello-world/index.html">
+<meta property="og:title" content="WeChat Ticket">
+<meta property="og:url" content="http://thsshuz.github.io/2017/10/15/WeChat-Ticket/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介微信抢票开发实战总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-16T07:51:51.000Z">
+<meta property="og:updated_time" content="2017-10-16T10:58:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hello world">
+<meta name="twitter:title" content="WeChat Ticket">
+<meta name="twitter:description" content="简介微信抢票开发实战总结">
 
 
 
@@ -117,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://thsshuz.github.io/2017/10/16/hello-world/"/>
+  <link rel="canonical" href="http://thsshuz.github.io/2017/10/15/WeChat-Ticket/"/>
 
 
 
 
 
-  <title>hello world | Hexo</title>
+  <title>WeChat Ticket | Hexo</title>
   
 
 
@@ -260,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://thsshuz.github.io/2017/10/16/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://thsshuz.github.io/2017/10/15/WeChat-Ticket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="huz">
@@ -277,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hello world</h1>
+          <h1 class="post-title" itemprop="name headline">WeChat Ticket</h1>
         
 
         <div class="post-meta">
@@ -289,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T15:24:33+08:00">
-                2017-10-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T16:21:10+08:00">
+                2017-10-15
               </time>
             
 
@@ -349,7 +352,20 @@
       
 
       
-        
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>微信抢票开发实战总结<br><a id="more"></a></p>
+<h1 id="初识微信"><a href="#初识微信" class="headerlink" title="初识微信"></a>初识微信</h1><p>拿到一个项目之后，我们首先要对该项目进行初步的了解。<br>这一部分最麻烦的地方就是部署环境</p>
+<h2 id="部署环境"><a href="#部署环境" class="headerlink" title="部署环境"></a>部署环境</h2><p>  我在部署环境这一步中主要参考了黄超同学的教程。一开始的时候我是在本地配置的环境，结果遇到了许多奇奇怪怪的问题，后来才知道是要在服务器端进行。<br>  登录服务器端的命令如下：</p>
+<p>  进入服务器端后，只需按照教程上的步骤来做，很容易就可以配置完成。</p>
+<h2 id="熟悉代码"><a href="#熟悉代码" class="headerlink" title="熟悉代码"></a>熟悉代码</h2><p>配置完环境之后，我花了一段时间来熟悉源代码，了解了各部分的架构和功能。</p>
+<h2 id="计算器功能"><a href="#计算器功能" class="headerlink" title="计算器功能"></a>计算器功能</h2><p>添加一个WeChatHandler类<br>check：用正则表达式判断输入是否只包含0123456789+-<em>/()这些字符<br>`<br>def is_formula(self):<br>    flag = r’^[0123456789+-\</em>/()]+$’<br>    return self.is_msg_type(‘text’) and re.search(flag, self.input[‘Content’])<br><code>handle：用python的eval函数来进行计算，如果没有捕捉到错误，则弹出结果，否则弹出&#39;表达式不合法，请重新输入...&#39;</code><br>try:<br>    eval(self.input[‘Content’])<br>except:<br>    return self.reply_text(‘表达式不合法，请重新输入…’)<br>else:<br>    return self.reply_text(eval(self.input[‘Content’]))<br>`</p>
+<h2 id="用户绑定"><a href="#用户绑定" class="headerlink" title="用户绑定"></a>用户绑定</h2><p>实现/api/u/user/bind接口<br>实现方法如下：利用对<a href="https://id.tsinghua.edu.cn/发送post请求来查看其返回结果，对结果进行解析，从而判断校园网账号密码是否有效" target="_blank" rel="external">https://id.tsinghua.edu.cn/发送post请求来查看其返回结果，对结果进行解析，从而判断校园网账号密码是否有效</a></p>
+<h1 id="实战项目"><a href="#实战项目" class="headerlink" title="实战项目"></a>实战项目</h1><p>接下来就是真正完成这个大项目了。<br>十一假期结束后，我才真正开始了自己的工作。<br>参照所给的两篇文档，我明确了自己的工作。可以分成两个大块，一是完成所要求的前后端接口，二是添加微信接口</p>
+<h2 id="前后端接口"><a href="#前后端接口" class="headerlink" title="前后端接口"></a>前后端接口</h2><p>这一部分可以参照着原有的用户登录接口照猫画虎，添加新类，连接路由。文档中也明确给出了每一个接口所要做的事情，所以并不是很难。<br>因此我想重点说一下遇到的问题<br>返回时间参数时必须要利用time.mktime函数将数据库中的存储的时间转换为时间戳格式再返回</p>
+<p>上传图像：需要在服务器端的特定位置保存管理员上传的图片，并记录图像url</p>
+<h2 id="微信接口"><a href="#微信接口" class="headerlink" title="微信接口"></a>微信接口</h2><p>这一部分主要是新建并添加一些WeChatHandler类，定义各类的check、handle方法。<br>而在实现的过程中要从用户角度出发，尽量使用户使用起来更加便捷<br>包括抢啥、抢票、取票、退票。</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>功能测试主要靠手动完成，考虑各种情形、特别是特殊情况和极端情况。<br>单元测试是仿照助教给出的例子来写。而具体原理我现在还不是很明白，还有待继续学习。</p>
+<h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>本次作业是在模拟接手一个项目，然后在前人的基础上继续完成。<br>锻炼了我们的自主学习代码、阅读文档的能力。</p>
+
       
     </div>
     
@@ -379,15 +395,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/10/15/hello-world/" rel="next" title="hello world">
+                <i class="fa fa-chevron-left"></i> hello world
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/16/WeChat-Ticket/" rel="prev" title="WeChat Ticket">
-                WeChat Ticket <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -437,8 +453,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -524,6 +549,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识微信"><span class="nav-number">2.</span> <span class="nav-text">初识微信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署环境"><span class="nav-number">2.1.</span> <span class="nav-text">部署环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#熟悉代码"><span class="nav-number">2.2.</span> <span class="nav-text">熟悉代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算器功能"><span class="nav-number">2.3.</span> <span class="nav-text">计算器功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户绑定"><span class="nav-number">2.4.</span> <span class="nav-text">用户绑定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实战项目"><span class="nav-number">3.</span> <span class="nav-text">实战项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前后端接口"><span class="nav-number">3.1.</span> <span class="nav-text">前后端接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信接口"><span class="nav-number">3.2.</span> <span class="nav-text">微信接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尾声"><span class="nav-number">5.</span> <span class="nav-text">尾声</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
