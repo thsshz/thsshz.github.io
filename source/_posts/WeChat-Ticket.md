@@ -80,4 +80,4 @@ url = "https://id.tsinghua.edu.cn/security_check"
 它锻炼了我们的自主学习代码、阅读文档的能力，也为接下来的大作业打下了基础。
 测试号二维码
 ===
-![](二维码.jpeg)
+![](https://github.com/thsshz/thsshz.github.io/blob/hexo/source/images/二维码.jpeg?raw=true)
